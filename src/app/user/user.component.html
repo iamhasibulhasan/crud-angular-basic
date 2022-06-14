@@ -1,0 +1,67 @@
+<div class="container my-5">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addNewUserModal">
+        Add new user
+    </button>
+</div>
+
+<div class="modal fade" id="addNewUserModal" tabindex="-1" aria-labelledby="addNewUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addNewUserModalLabel">Add new user</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group mb-3">
+                        <input type="text" class="form-control" placeholder="Enter your name">
+                    </div>
+                    <div class="form-group mb-3">
+                        <input type="text" class="form-control" placeholder="Address">
+                    </div>
+                    <div class="form-group mb-3">
+                        <input type="text" class="form-control" placeholder="Phone number">
+                    </div>
+                    <div class="form-group mb-3">
+                        <input type="text" class="form-control" placeholder="Email">
+                    </div>
+                    <strong>Educational Qualifications</strong>
+                    <hr>
+                    <div class="form-group d-flex mb-3 gap-2">
+
+                        <input type="text" class="form-control" placeholder="Degree/Program">
+
+                        <select class="form-control">
+                            <option>Select Grade</option>
+                            <option value="A+">A+</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                            <option value="F">F</option>
+                        </select>
+
+                    </div>
+                    <div class="form-group mb-3">
+                        <input type="text" class="form-control" placeholder="Institute name">
+                    </div>
+
+                    <div class="form-group d-flex mb-3 gap-2">
+                        <div>
+                            <label for="">From date</label>
+                            <input type="date" class="form-control">
+                        </div>
+                        <div>
+                            <label for="">To date (Optional)</label>
+                            <input type="date" class="form-control">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Add new user</button>
+            </div>
+        </div>
+    </div>
+</div>
