@@ -75,7 +75,7 @@
                                 *ngIf="degree && degree.dirty && grade && grade && grade.untouched">Degree
                                 required*.</span>
                             <select class="form-control" formControlName="grade">
-                                <option [selected]>Select Grade</option>
+                                <option value="" selected>Select Grade</option>
                                 <option value="A+">A+</option>
                                 <option value="A">A</option>
                                 <option value="B">B</option>
@@ -125,63 +125,73 @@
 <div class="modal fade" id="updateUserModal" #updateUser tabindex="-1" aria-labelledby="updateUserModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="updateUserModalLabel">Add new user</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form>
+        <form #updateForm="ngForm" (ngSubmit)="userUpdate(updateForm.value, singleUser.id)">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateUserModalLabel">Add new user</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+
                     <div class="form-group mb-3">
-                        <input type="text" class="form-control" placeholder="Enter your name">
+                        <input type="text" class="form-control" placeholder="Enter your name" value="{{singleUser.name}}" ngModel
+                            name="updateName">
                     </div>
                     <div class="form-group mb-3">
-                        <input type="text" class="form-control" placeholder="Address">
+                        <input type="text" class="form-control" placeholder="Address" value="{{singleUser.address}}" ngModel
+                            name="updateAddress">
                     </div>
                     <div class="form-group mb-3">
-                        <input type="text" class="form-control" placeholder="Phone number">
+                        <input type="text" class="form-control" placeholder="Phone number" value="{{singleUser.phone}}" ngModel
+                            name="updatePhone">
                     </div>
                     <div class="form-group mb-3">
-                        <input type="text" class="form-control" placeholder="Email">
+                        <input type="text" class="form-control" placeholder="Email" value="{{singleUser.email}}" ngModel name="updateEmail">
                     </div>
                     <strong>Educational Qualifications</strong>
                     <hr>
                     <div class="form-group d-flex mb-3 gap-2">
 
-                        <input type="text" class="form-control" placeholder="Degree/Program">
-
-                        <select class="form-control">
-                            <option>Select Grade</option>
-                            <option value="A+">A+</option>
-                            <option value="A">A</option>
-                            <option value="B">B</option>
-                            <option value="C">C</option>
-                            <option value="D">D</option>
-                            <option value="F">F</option>
+                        <input type="text" class="form-control" placeholder="Degree/Program" value="{{singleEducation.degree}}" ngModel
+                            name="updateDegree">
+                        <!-- Select option dynamic selection follow url "https://stackoverflow.com/questions/40797296/angular-2-how-to-handle-ngif-in-option-select" -->
+                        <select class="form-control" ngModel name="updateGrade">
+                            <option value="">Select Grade</option>
+                            <option value="A+" [selected]="singleEducation.grade === 'A+'">A+</option>
+                            <option value="A" [selected]="singleEducation.grade === 'A'">A</option>
+                            <option value="B" [selected]="singleEducation.grade === 'B'">B</option>
+                            <option value="C" [selected]="singleEducation.grade === 'C'">C</option>
+                            <option value="D" [selected]="singleEducation.grade === 'D'">D</option>
+                            <option value="F" [selected]="singleEducation.grade === 'F'">F</option>
                         </select>
 
                     </div>
                     <div class="form-group mb-3">
-                        <input type="text" class="form-control" placeholder="Institute name">
+                        <input type="text" class="form-control" placeholder="Institute name" value="{{singleEducation.institute}}" ngModel
+                            name="updateInstitute">
                     </div>
 
                     <div class="form-group d-flex mb-3 gap-2">
                         <div>
                             <label for="">From date</label>
-                            <input type="date" class="form-control">
+                            <input type="date" class="form-control" ngModel name="updateFromDate">
                         </div>
                         <div>
                             <label for="">To date (Optional)</label>
-                            <input type="date" class="form-control">
+                            <input type="date" class="form-control" ngModel name="updateToDate">
                         </div>
                     </div>
-                </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Update User</button>
+                    </div>
+
+
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Add new user</button>
-            </div>
-        </div>
+        </form>
     </div>
 
 

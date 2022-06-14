@@ -12,6 +12,7 @@ export class UserComponent implements OnInit {
   person:any=[];
   singleUser:any=[];
   singleEducation:any=[];
+  selected='selected';
 
   constructor() { }
 
@@ -30,6 +31,7 @@ export class UserComponent implements OnInit {
     fromDate:new FormControl(''),
     toDate:new FormControl(''),
   })
+
 // ======================================
   get name(){
     return this.addNewUser.get('name');
@@ -87,7 +89,7 @@ export class UserComponent implements OnInit {
   singleData(id:number){
     this.singleUser = this.person.filter((item: { id: number; })=>item.id === id)[0];
     this.singleEducation = this.person.filter((item: { id: number; })=>item.id === id)[0].educationalQualifications[0];
-    console.log(this.singleEducation);
+    // console.log(this.singleEducation);
   }
   // view single user
   viewUser(id:number){
@@ -95,13 +97,28 @@ export class UserComponent implements OnInit {
   }
   // user delete
   userDelete(id:number){
-    this.person = this.person.filter((item: { id: number; })=>item.id !== id)[0];
+    this.person = this.person.filter((item: { id: number; })=>item.id !== id);
   }
 
-  // update user function
+  // edit user function
   updateUserModalShow(id:number){
-    console.log(id);
- 
+    let data = this.singleData(id);
   }
+
+  // update user
+  userUpdate(data:any,id:number){
+    // this.singleData(id);
+    this.singleUser.name = data.updateName || this.singleUser.name;
+    this.singleUser.email = data.updateEmail || this.singleUser.email;
+    this.singleUser.phone = data.updatePhone || this.singleUser.phone;
+    this.singleUser.address = data.updateAddress || this.singleUser.address;
+    this.singleEducation.degree = data.updateDegree || this.singleEducation.degree;
+    this.singleEducation.grade = data.updateGrade || this.singleEducation.grade;
+    this.singleEducation.institute = data.updateInstitute || this.singleEducation.institute;
+    this.singleEducation.fromDate = data.updateFromDate || this.singleEducation.fromDate;
+    this.singleEducation.toDate = data.updateToDate || this.singleEducation.toDate;
+    
+  }
+
 
 }
