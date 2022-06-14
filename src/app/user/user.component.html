@@ -1,17 +1,130 @@
 <div class="container my-5">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addNewUserModal">
-        Add new user
-    </button>
-</div>
-
-<div class="modal fade" id="addNewUserModal" tabindex="-1" aria-labelledby="addNewUserModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addNewUserModalLabel">Add new user</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
+    <!-- Add new user modal btn -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addNewUserModal">Add new
+        user</button>
+    <!-- All user table -->
+    <table class="table table-hover mt-5">
+        <thead>
+            <th>#SI</th>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Action</th>
+        </thead>
+        <tbody *ngFor="let user of person">
+            <tr>
+                <td>{{user.id +1}}</td>
+                <td>{{user.name}}</td>
+                <td>{{user.phone}}</td>
+                <td>{{user.email}}</td>
+                <td>
+                    <a href="#" (click)="viewUser(user.id)" class="btn btn-primary btn-sm">View</a>&nbsp;
+                    <a href="#" class="btn btn-warning btn-sm" (click)="updateUserModalShow()">Edit</a>&nbsp;
+                    <a href="#" class="btn btn-danger btn-sm">Delete</a>&nbsp;
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+    <!-- Add new user modal -->
+    <div class="modal fade" id="addNewUserModal" tabindex="-1" aria-labelledby="addNewUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <form [formGroup]="addNewUser" (ngSubmit)="addUser()">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addNewUserModalLabel">Add new user</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group mb-3">
+                            <span style="color: red;" *ngIf="name && name.invalid && name.touched">Name required*</span>
+                            <input type="text" class="form-control" placeholder="Enter your name" formControlName="name">
+                        </div>
+                        <div class="form-group mb-3">
+                            <span style="color: red;" *ngIf="address && address.invalid && address.touched">Put valid
+                                address.</span>
+                            <input type="text" class="form-control" placeholder="Address" formControlName="address">
+                        </div>
+                        <div class="form-group mb-3">
+                            <span style="color: red;" *ngIf="phone && phone.invalid && phone.touched">Put 11 digit phone
+                                no.</span>
+                            <input type="text" class="form-control" placeholder="Phone number 11 digit"
+                                formControlName="phone">
+                        </div>
+                        <div class="form-group mb-3">
+                            <input type="text" class="form-control" placeholder="Email" formControlName="email">
+                            <span style="color: red;" *ngIf="email && email.invalid && email.touched">Invalid email.</span>
+                        </div>
+                        <strong>Educational Qualifications</strong>
+                        <hr>
+                        <div class="form-group d-flex mb-3 gap-2">
+    
+                            <div>
+                                <span style="color: red;" *ngIf="degree && degree.invalid && degree.touched">Invalid
+                                    degree/program.</span>
+                                <input type="text" class="form-control" placeholder="Degree/Program"
+                                    formControlName="degree">
+                            </div>
+    
+                            <div>
+                                <span style="color: red;"
+                                    *ngIf="degree && degree.dirty && grade && grade && grade.untouched">Degree
+                                    required*.</span>
+                                <select class="form-control" formControlName="grade">
+                                    <option [selected]>Select Grade</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                                    <option value="D">D</option>
+                                    <option value="F">F</option>
+                                </select>
+                            </div>
+    
+                        </div>
+                        <div class="form-group mb-3">
+                            <span style="color: red;"
+                                *ngIf="degree && degree.dirty && institute && institute.untouched">Institute
+                                required*.</span>
+                            <input type="text" class="form-control" placeholder="Institute name"
+                                formControlName="institute">
+                        </div>
+    
+                        <div class="form-group d-flex mb-3">
+                            <div>
+                                <span style="color: red;"
+                                    *ngIf="degree && degree.dirty && fromDate && fromDate.untouched">Date required*.</span>
+                                <label for="">From date</label>
+                                <input type="date" class="form-control" formControlName="fromDate">
+                            </div>
+                            <div>
+                                <label for="">To date (Optional)</label>
+                                <input type="date" class="form-control" formControlName="toDate">
+                            </div>
+                        </div>
+    
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"
+                            [disabled]="addNewUser.invalid">Add
+                            new user</button>
+                    </div>
+                </div>
+            </form>
+        
+        </div>
+        </div>
+        <!-- Update user modal -->
+        <div class="modal fade" id="updateUserModal" #updateUser tabindex="-1" aria-labelledby="updateUserModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                                    <h5 class="modal-title" id="updateUserModalLabel">Add new user</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
                 <form>
                     <div class="form-group mb-3">
                         <input type="text" class="form-control" placeholder="Enter your name">
@@ -64,4 +177,6 @@
             </div>
         </div>
     </div>
+
+
 </div>
