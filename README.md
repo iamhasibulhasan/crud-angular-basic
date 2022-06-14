@@ -7,6 +7,8 @@ Without API
 - Application have edit and delete options for user.
 - Using proper validations as all of the fields are require and for a single educational.
 - Using proper validation for phone number and email.
+- For Register user using (Reactive form)
+- For Edit user using (Template Driven form)
 
 ### Port
 ```
