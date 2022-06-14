@@ -10,6 +10,8 @@ export class UserComponent implements OnInit {
 
 
   person:any=[];
+  singleUser:any=[];
+  singleEducation:any=[];
 
   constructor() { }
 
@@ -69,24 +71,36 @@ export class UserComponent implements OnInit {
       email:this.addNewUser.value.email,
 
       educationalQualifications:[{
-      'degree':this.addNewUser.value.degree,
-      'institute':this.addNewUser.value.institute,
-      'grade':this.addNewUser.value.grade,
-      'fromDate':this.addNewUser.value.fromDate,
-      'toDate':this.addNewUser.value.toDate,
+      degree:this.addNewUser.value.degree,
+      institute:this.addNewUser.value.institute,
+      grade:this.addNewUser.value.grade,
+      fromDate:this.addNewUser.value.fromDate,
+      toDate:this.addNewUser.value.toDate,
       }]
       
     });
+    this.addNewUser.reset();
     // console.log(this.person);
   }
   
+  // get single user
+  singleData(id:number){
+    this.singleUser = this.person.filter((item: { id: number; })=>item.id === id)[0];
+    this.singleEducation = this.person.filter((item: { id: number; })=>item.id === id)[0].educationalQualifications[0];
+    console.log(this.singleEducation);
+  }
   // view single user
   viewUser(id:number){
-    console.log(id);
+    this.singleData(id);
+  }
+  // user delete
+  userDelete(id:number){
+    this.person = this.person.filter((item: { id: number; })=>item.id !== id)[0];
   }
 
-  updateUserModalShow(){
-    console.log(document.getElementById('updateUserModal'));
+  // update user function
+  updateUserModalShow(id:number){
+    console.log(id);
  
   }
 
