@@ -2,6 +2,7 @@
     <!-- Add new user modal btn -->
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addNewUserModal">Add new
         user</button>
+
     <!-- All user table -->
     <table class="table table-hover mt-5">
         <thead>
@@ -59,22 +60,32 @@
                         <input type="text" class="form-control" placeholder="Email" formControlName="email">
                         <span style="color: red;" *ngIf="email && email.invalid && email.touched">Invalid email.</span>
                     </div>
+
+
                     <strong>Educational Qualifications</strong>
+                    <div *ngIf="education.length >0 " class="show-education">
+                    
+                        <p *ngFor="let data of education" class="badge bg-primary">
+                            <strong>Institute:</strong> {{data.institute}}<br>
+                            <strong>Degree:</strong> {{data.degree}}
+                        </p>
+                    </div>
+
                     <hr>
                     <div class="form-group d-flex mb-3 gap-2">
 
-                        <div>
+                        <div class="w-50">
                             <span style="color: red;" *ngIf="degree && degree.invalid && degree.touched">Invalid
                                 degree/program.</span>
-                            <input type="text" class="form-control" placeholder="Degree/Program"
+                            <input type="text" class="form-control" #deg placeholder="Degree/Program"
                                 formControlName="degree">
                         </div>
 
-                        <div>
+                        <div class="w-50">
                             <span style="color: red;"
                                 *ngIf="degree && degree.dirty && grade && grade && grade.untouched">Degree
                                 required*.</span>
-                            <select class="form-control" formControlName="grade">
+                            <select class="form-control" formControlName="grade" #grd>
                                 <option value="" selected>Select Grade</option>
                                 <option value="A+">A+</option>
                                 <option value="A">A</option>
@@ -90,22 +101,23 @@
                         <span style="color: red;"
                             *ngIf="degree && degree.dirty && institute && institute.untouched">Institute
                             required*.</span>
-                        <input type="text" class="form-control" placeholder="Institute name"
-                            formControlName="institute">
+                        <input type="text" class="form-control" placeholder="Institute name" formControlName="institute" #inst>
                     </div>
 
-                    <div class="form-group d-flex mb-3">
-                        <div>
+                    <div class="form-group d-flex mb-3 gap-2">
+                        <div class="w-50">
                             <span style="color: red;"
                                 *ngIf="degree && degree.dirty && fromDate && fromDate.untouched">Date required*.</span>
                             <label for="">From date</label>
-                            <input type="date" class="form-control" formControlName="fromDate">
+                            <input type="date" class="form-control" formControlName="fromDate" #fdate>
                         </div>
-                        <div>
+                        <div class="w-50">
                             <label for="">To date (Optional)</label>
-                            <input type="date" class="form-control" formControlName="toDate">
+                            <input type="date" class="form-control" formControlName="toDate" #tdate>
                         </div>
                     </div>
+                    <button class="btn btn-primary btn-sm" type="button" (click)="addDegree()">Add</button>
+
 
                 </div>
                 <div class="modal-footer">
@@ -187,7 +199,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Update User</button>
-                    </div>
+                </div>
 
 
             </div>
@@ -224,25 +236,21 @@
                             <td>Email:</td>
                             <td>{{singleUser.email}}</td>
                         </tr>
-                        <tr>
-                            <td>Degree:</td>
-                            <td>{{singleEducation.degree}}</td>
-                        </tr>
-                        <tr>
-                            <td>Grade:</td>
-                            <td>{{singleEducation.grade}}</td>
-                        </tr>
-                        <tr>
-                            <td>Institution Name:</td>
-                            <td>{{singleEducation.institute}}</td>
-                        </tr>
-                        <tr>
-                            <td>Education Year:</td>
-                            <td>{{singleEducation.fromDate}} to
-                                {{singleEducation.toDate || 'Running'}}</td>
-                        </tr>
+                        
+
                     </tbody>
                 </table>
+                <b>Educational Qualifications</b>
+                <p *ngFor="let data of singleEducation">
+                    <span class="badge bg-secondary text-start">
+                        <span *ngFor="let single of data" class="p-0">
+                            Institute: {{single.degree}}<br>
+                            Degree : {{single.degree}}<br>
+                            Grade : {{single.degree}}<br>
+                            Form Date : {{single.fromDate}} to {{single.toDate || 'Running'}}
+                        </span>
+                    </span>
+                </p>
             </div>
         </div>
     </div>

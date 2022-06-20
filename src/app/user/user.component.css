@@ -1,0 +1,9 @@
+.show-education {
+    display: grid;
+    grid-template-columns: 1fr;
+    /* grid-column-gap: 10px; */
+}
+
+.show-education p {
+    text-align: justify;
+}

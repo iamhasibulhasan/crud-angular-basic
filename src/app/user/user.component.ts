@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
@@ -7,13 +7,19 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-
+  
+  @ViewChild('deg', { static: true })deg!: ElementRef;
+  @ViewChild('grd', { static: true })grd!: ElementRef;
+  @ViewChild('inst', { static: true })inst!: ElementRef;
+  @ViewChild('fdate', { static: true })fdate!: ElementRef;
+  @ViewChild('tdate', { static: true })tdate!: ElementRef;
 
   person:any=[];
   singleUser:any=[];
   singleEducation:any=[];
   selected='selected';
-
+  education:any=[];
+  
   constructor() { }
 
   ngOnInit(): void {
@@ -71,25 +77,47 @@ export class UserComponent implements OnInit {
       address:this.addNewUser.value.address,
       phone:this.addNewUser.value.phone,
       email:this.addNewUser.value.email,
+      educationalQualifications:[this.education]
+      
+      
+    });
+    this.addNewUser.reset();
+    console.log(this.person);
+    this.education=[];
+  }
 
-      educationalQualifications:[{
+
+
+
+  // multiple degree
+  addDegree(){
+    
+    this.education.push({
       degree:this.addNewUser.value.degree,
       institute:this.addNewUser.value.institute,
       grade:this.addNewUser.value.grade,
       fromDate:this.addNewUser.value.fromDate,
       toDate:this.addNewUser.value.toDate,
-      }]
-      
-    });
-    this.addNewUser.reset();
-    // console.log(this.person);
+      })
+      this.educationData();
+      let ok = document.getElementById('edu');
+      this.deg.nativeElement.value='';
+      this.grd.nativeElement.value='';
+      this.inst.nativeElement.value='';
+      this.fdate.nativeElement.value='';
+      this.tdate.nativeElement.value='';
+      // console.log(this.education);
   }
   
   // get single user
   singleData(id:number){
     this.singleUser = this.person.filter((item: { id: number; })=>item.id === id)[0];
-    this.singleEducation = this.person.filter((item: { id: number; })=>item.id === id)[0].educationalQualifications[0];
-    // console.log(this.singleEducation);
+    this.singleEducation = this.person.filter((item: { id: number; })=>item.id === id)[0].educationalQualifications;
+    console.log(this.singleEducation);
+  }
+
+  educationData(){
+    console.log(this.education);
   }
   // view single user
   viewUser(id:number){
