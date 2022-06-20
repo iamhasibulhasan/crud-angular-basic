@@ -118,6 +118,7 @@ export class UserComponent implements OnInit {
     this.singleEducation.fromDate = data.updateFromDate || this.singleEducation.fromDate;
     this.singleEducation.toDate = data.updateToDate || this.singleEducation.toDate;
     
+    // console.log(this.singleEducation.fromDate);
   }
 
 
