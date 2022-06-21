@@ -1,4 +1,5 @@
-.show-education {
+.show-education,
+.all-degree {
     display: grid;
     grid-template-columns: 1fr;
     /* grid-column-gap: 10px; */
@@ -6,4 +7,10 @@
 
 .show-education p {
     text-align: justify;
+}
+
+.all-degree {
+    gap: 10px;
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
 }

@@ -64,7 +64,7 @@
 
                     <strong>Educational Qualifications</strong>
                     <div *ngIf="education.length >0 " class="show-education">
-                    
+
                         <p *ngFor="let data of education" class="badge bg-primary">
                             <strong>Institute:</strong> {{data.institute}}<br>
                             <strong>Degree:</strong> {{data.degree}}
@@ -164,38 +164,46 @@
                     </div>
                     <strong>Educational Qualifications</strong>
                     <hr>
-                    <div class="form-group d-flex mb-3 gap-2">
+                    <!--  -->
+                    <div *ngFor="let collections of singleEducation">
+                        <div *ngFor="let collection of collections">
+                            <div class="form-group d-flex mb-3 gap-2">
 
-                        <input type="text" class="form-control" placeholder="Degree/Program" value="{{singleEducation.degree}}" ngModel
-                            name="updateDegree">
-                        <!-- Select option dynamic selection follow url "https://stackoverflow.com/questions/40797296/angular-2-how-to-handle-ngif-in-option-select" -->
-                        <select class="form-control" ngModel name="updateGrade">
-                            <option value="">Select Grade</option>
-                            <option value="A+" [selected]="singleEducation.grade === 'A+'">A+</option>
-                            <option value="A" [selected]="singleEducation.grade === 'A'">A</option>
-                            <option value="B" [selected]="singleEducation.grade === 'B'">B</option>
-                            <option value="C" [selected]="singleEducation.grade === 'C'">C</option>
-                            <option value="D" [selected]="singleEducation.grade === 'D'">D</option>
-                            <option value="F" [selected]="singleEducation.grade === 'F'">F</option>
-                        </select>
+                                <input type="text" class="form-control" placeholder="Degree/Program" ngModel="{{collection.degree}}"
+                                    name="updateDegree{{collection.degree}}">
+                                <!-- Select option dynamic selection follow url "https://stackoverflow.com/questions/40797296/angular-2-how-to-handle-ngif-in-option-select" -->
+                                <select class="form-control" name="updateGrade{{collection.degree}}" ngModel="{{collection.grade}}">
+                                    <option value="">Select Grade</option>
+                                    <option value=" A+" [selected]="collection.grade === 'A+'">A+</option>
+                                    <option value="A" [selected]="collection.grade === 'A'">A</option>
+                                    <option value="B" [selected]="collection.grade === 'B'">B</option>
+                                    <option value="C" [selected]="collection.grade === 'C'">C</option>
+                                    <option value="D" [selected]="collection.grade === 'D'">D</option>
+                                    <option value="F" [selected]="collection.grade === 'F'">F</option>
+                                    </select>
 
-                    </div>
-                    <div class="form-group mb-3">
-                        <input type="text" class="form-control" placeholder="Institute name" value="{{singleEducation.institute}}" ngModel
-                            name="updateInstitute">
-                    </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <input type="text" class="form-control" placeholder="Institute name" ngModel="{{collection.institute}}"
+                                    name="updateInstitute{{collection.degree}}">
+                                </div>
 
-                    <div class="form-group d-flex mb-3 gap-2">
-                        <div>
-                            <label for="">From date</label>
-                            <input type="date" class="form-control" value="{{singleEducation.fromDate}}" ngModel name="updateFromDate">
+                            <div class="form-group d-flex mb-3 gap-2">
+                                <div>
+                                    <label for="">From date</label>
+                                    <input type="date" class="form-control" ngModel="{{collection.fromDate}}" name="updateFromDate{{collection.degree}}">
+                                    </div>
+                                    <div>
+                                        <label for="">To date (Optional)</label>
+                                    <input type="date" class="form-control" ngModel="{{collection.toDate}}" name="updateToDate{{collection.degree}}">
+                                    </div>
+                            </div>
                         </div>
-                        <div>
-                            <label for="">To date (Optional)</label>
-                            <input type="date" class="form-control" value="{{singleEducation.toDate}}" ngModel name="updateToDate">
+                        <hr>
                         </div>
-                    </div>
-                </div>
+                        <!--  -->
+                        </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Update User</button>
@@ -208,6 +216,8 @@
 
 
 </div>
+
+
 <!-- view user data model -->
 
 <div class="modal fade" id="viewUserModal">
@@ -236,21 +246,21 @@
                             <td>Email:</td>
                             <td>{{singleUser.email}}</td>
                         </tr>
-                        
+
 
                     </tbody>
                 </table>
                 <b>Educational Qualifications</b>
-                <p *ngFor="let data of singleEducation">
-                    <span class="badge bg-secondary text-start">
+                <div *ngFor="let data of singleEducation">
+                    <p class="badge bg-secondary text-start all-degree">
                         <span *ngFor="let single of data" class="p-0">
-                            Institute: {{single.degree}}<br>
+                            Institute: {{single.institute}}<br>
                             Degree : {{single.degree}}<br>
-                            Grade : {{single.degree}}<br>
+                            Grade : {{single.grade}}<br>
                             Form Date : {{single.fromDate}} to {{single.toDate || 'Running'}}
                         </span>
-                    </span>
-                </p>
+                    </p>
+                </div>
             </div>
         </div>
     </div>

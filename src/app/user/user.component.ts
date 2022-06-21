@@ -17,6 +17,7 @@ export class UserComponent implements OnInit {
   person:any=[];
   singleUser:any=[];
   singleEducation:any=[];
+  justEducation:any;
   selected='selected';
   education:any=[];
   
@@ -70,7 +71,7 @@ export class UserComponent implements OnInit {
 
   // Add new user function
   addUser(){
-    // this.person.push(this.addNewUser.value.name)
+    
     this.person.push({
       id:this.person.length,
       name:this.addNewUser.value.name,
@@ -82,7 +83,7 @@ export class UserComponent implements OnInit {
       
     });
     this.addNewUser.reset();
-    console.log(this.person);
+    // console.log(this.person);
     this.education=[];
   }
 
@@ -99,26 +100,34 @@ export class UserComponent implements OnInit {
       fromDate:this.addNewUser.value.fromDate,
       toDate:this.addNewUser.value.toDate,
       })
-      this.educationData();
-      let ok = document.getElementById('edu');
+      
       this.deg.nativeElement.value='';
       this.grd.nativeElement.value='';
       this.inst.nativeElement.value='';
       this.fdate.nativeElement.value='';
       this.tdate.nativeElement.value='';
-      // console.log(this.education);
+      
   }
   
   // get single user
   singleData(id:number){
     this.singleUser = this.person.filter((item: { id: number; })=>item.id === id)[0];
+
     this.singleEducation = this.person.filter((item: { id: number; })=>item.id === id)[0].educationalQualifications;
     console.log(this.singleEducation);
+
+    this.singleEdu(id);
   }
 
-  educationData(){
-    console.log(this.education);
+  // SINGLE EDUCATION
+  singleEdu(id:number){
+    this.person.filter((item: { id: number; })=>item.id === id)[0].educationalQualifications.map((c: any)=>{
+      this.justEducation = c;
+      // console.log(data);
+    });
   }
+
+ 
   // view single user
   viewUser(id:number){
     this.singleData(id);
@@ -130,23 +139,26 @@ export class UserComponent implements OnInit {
 
   // edit user function
   updateUserModalShow(id:number){
-    let data = this.singleData(id);
+    
+    this.singleData(id);
+    
   }
 
   // update user
   userUpdate(data:any,id:number){
-    // this.singleData(id);
+    
     this.singleUser.name = data.updateName || this.singleUser.name;
     this.singleUser.email = data.updateEmail || this.singleUser.email;
     this.singleUser.phone = data.updatePhone || this.singleUser.phone;
     this.singleUser.address = data.updateAddress || this.singleUser.address;
-    this.singleEducation.degree = data.updateDegree || this.singleEducation.degree;
-    this.singleEducation.grade = data.updateGrade || this.singleEducation.grade;
-    this.singleEducation.institute = data.updateInstitute || this.singleEducation.institute;
-    this.singleEducation.fromDate = data.updateFromDate || this.singleEducation.fromDate;
-    this.singleEducation.toDate = data.updateToDate || this.singleEducation.toDate;
+
+    // this.singleEducation.degree = data.updateDegree || this.singleEducation.degree;
+    // this.singleEducation.grade = data.updateGrade || this.singleEducation.grade;
+    // this.singleEducation.institute = data.updateInstitute || this.singleEducation.institute;
+    // this.singleEducation.fromDate = data.updateFromDate || this.singleEducation.fromDate;
+    // this.singleEducation.toDate = data.updateToDate || this.singleEducation.toDate;
     
-    // console.log(this.singleEducation.fromDate);
+    
   }
 
 
